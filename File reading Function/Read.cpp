@@ -32,10 +32,27 @@ int main (int argc, const char * argv[])
 	string numberInput;
 	int convertedNumber;
 
-	vector <int> setOfNumbers;
+	vector <vector<int>* > setOfNumbers;
+	vector <int> vectorRow;
+	
+	vector <int> *rowPTR = new vector <int>;
+
+	vector<vector<int>>::iterator rowIt;
+	vector<int>::iterator colIt;
+
+
+	int rowNumber = 0;
+
 
 	while (!fin.eof() ) 
 	{
+		if (my_character == '[')
+		{
+			cout << "adding new row" << endl;
+			vector <int> *rowPTR = new vector <int>;
+			rowPTR->clear();
+			
+		}
 
 		fin.get(my_character);
 		if (my_character == '-')
@@ -59,20 +76,32 @@ int main (int argc, const char * argv[])
 			} 
 				
 			//add to vector
-			setOfNumbers.push_back(convertedNumber);
+			rowPTR->push_back(convertedNumber);
+			cout << rowPTR->back() << endl;
 			numberInput.clear();
 		}
 
 		if (my_character == ']')
 		{
-			for(std::vector<int>::iterator it = setOfNumbers.begin(); it != setOfNumbers.end(); ++it) {
-			    std::cout << *it << " ";
-			}
 			setOfNumbers.clear();
 			cout << "number of elements is: " << numberElements << endl;
 			numberElements = 0;
+			++rowNumber;	
+			setOfNumbers.push_back(rowPTR);
 		}
-	
+
 	}
 
+	cout << setOfNumbers[0]->back();
+
+
+	// cout << setOfNumbers[0][0] << endl;
+
+	// for( rowIt = setOfNumbers.begin(); rowIt != setOfNumbers.end(); ++rowIt) {
+	// 	for( colIt = rowIt->begin(); colIt != rowIt->end(); ++colIt)
+	// 	{
+	// 		std::cout << *colIt << " ";
+	// 	}   
+	// 	cout << endl << endl;
+	// }
 }
