@@ -17,7 +17,7 @@
  * *  Description: Function will find the sub array with the max sum 
  * *  in the array arg
  * ***************************************************************/
-int linearMaxSub( std::vector<int>  v )
+int linearMaxSub( std::vector<int>  &v )
 {
     int localSum = 0;			//current sum of current subarray
     int maxSum = 0;				//maximum sum subarray calculated so far
@@ -37,7 +37,7 @@ int linearMaxSub( std::vector<int>  v )
  * *  Description: Function will find the sub array with the max sum 
  * *  in the array arg
  * ***************************************************************/
-int linearMaxSub( std::vector<int> v, int &start, int &end )
+int linearMaxSub( std::vector<int> &v, int &start, int &end )
 {
     int localSum = 0;			//current sum of current subarray
     int maxSum = 0;				//maximum sum subarray calculated so far

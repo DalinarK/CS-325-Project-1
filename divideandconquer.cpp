@@ -13,7 +13,7 @@
  * *  Return value: int representing sum of	the values in the subarray A[low..high]
  * *  Description: This function executes the divide and conquer implementation of find maximum subarray 
  * ***************************************************************/
-int executeDivideAndConquer( std::vector <int> v )
+int executeDivideAndConquer( std::vector <int> &v )
 {
 	int lowIndex = 0;								//set the lower index to start dividing from 
 	int highIndex = v.size() - 1; 					//set the higher index to end dividing from
@@ -26,7 +26,7 @@ int executeDivideAndConquer( std::vector <int> v )
  * *  Return value: struct representing the maximum subarray in A[low..high]
  * *  Description: This function executes the divide and conquer implementation of find maximum subarray 
  * ***************************************************************/
-int executeDivideAndConquer( std::vector <int> v, int &lowIndex, int &highIndex )
+int executeDivideAndConquer( std::vector <int> &v, int &lowIndex, int &highIndex )
 {
 	maximumSubarray m;
 	lowIndex = 0;									//set the lower index to start dividing from 
@@ -44,7 +44,7 @@ int executeDivideAndConquer( std::vector <int> v, int &lowIndex, int &highIndex 
  * *  Description: This function checks for the base case in which case it returns the single element and for the recursive case where divide and conquer is used to
  * *  divide the subarray into equal parts and recursively find the maxes, eventually comparing the maxes with each other to return the subarray with the largest sum
  * ***************************************************************/
-int findMaximumSubarray( std::vector <int> v, int lowIndex, int highIndex )
+int findMaximumSubarray( std::vector <int> &v, int lowIndex, int highIndex )
 {
 	/****************************************************************
 	* * The base case occurs when there is only one element in the input, and then the single element is returned
@@ -71,7 +71,7 @@ int findMaximumSubarray( std::vector <int> v, int lowIndex, int highIndex )
  * *  Description: This function checks for the base case in which case it returns the single element and for the recursive case where divide and conquer is used to
  * *  divide the subarray into equal parts and recursively find the maxes, eventually comparing the maxes with each other to return the subarray with the largest sum
  * ***************************************************************/
-maximumSubarray findMaximumSubarray2(std::vector <int> v, int lowIndex, int highIndex )
+maximumSubarray findMaximumSubarray2(std::vector <int> &v, int lowIndex, int highIndex )
 {
 	maximumSubarray m;
 	/****************************************************************
@@ -126,7 +126,7 @@ maximumSubarray findMaximumSubarray2(std::vector <int> v, int lowIndex, int high
  * *  Description: This function takes an input vector array and indices low, high and mid and returns a tuple containing the indices demarcating a maximum subarray 
  * *  that crosses the midpoint, along with the sum of the values in a maximum subarray, from pg. 70 in Cormen's algorithm
  ***************************************************************/
-int findMaximumCrossingSubarray( std::vector<int> v, int lowIndex, int highIndex, int midIndex )
+int findMaximumCrossingSubarray( std::vector<int> &v, int lowIndex, int highIndex, int midIndex )
 {
 	/****************************************************************
 	* * Find maximum subarray for the left half, from A[low..mid] from pg. 72 of Cormen's Algorithms:
@@ -172,7 +172,7 @@ int findMaximumCrossingSubarray( std::vector<int> v, int lowIndex, int highIndex
  * *  Description: This function takes an input vector array and indices low, high and mid and returns a tuple containing the indices demarcating a maximum subarray 
  * *  that crosses the midpoint, along with the sum of the values in a maximum subarray, from pg. 70 in Cormen's algorithm
  ***************************************************************/
-maximumSubarray findMaximumCrossingSubarray2(std::vector<int> vec, int lowIndex, int highIndex, int midIndex )
+maximumSubarray findMaximumCrossingSubarray2(std::vector<int> &vec, int lowIndex, int highIndex, int midIndex )
 {
 	/****************************************************************
 	* * Find maximum subarray for the left half, from A[low..mid] from pg. 72 of Cormen's Algorithms:

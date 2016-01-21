@@ -15,6 +15,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <string>
+#include <sstream>
 
 
 #include "enumeration.h"
@@ -22,10 +23,10 @@
 #include "divideandconquer.h"
 #include "linearTime.h"
 
-std::vector<std::string>* readFile(std::ifstream& input);
+std::vector<std::string> readFile(std::ifstream& input);
 void formatLine(std::string &rawString);
-std::vector<int>* convertToNumber(std::string &line);
-std::vector<std::vector<int>*>* getNumbers(std::ifstream &input);
+std::vector<int> convertToNumber(std::string &line);
+std::vector<std::vector<int>> getNumbers(std::ifstream &input);
 void writeResults(std::ofstream &output, std::vector<int>& results, int lo, int hi, int total);
 
 int main()
@@ -49,68 +50,80 @@ int main()
     std::ofstream textfile2;
     textfile2.open("MSS_Results.txt");
 	/* vector of vectors to store number set */
-    std::vector<std::vector<int>*>* setOfNumbers = getNumbers(textfile);
+    std::vector<std::vector<int>> setOfNumbers = getNumbers(textfile);
+		
+	
+	//look at input
+	
+	for( int i = 0; i < setOfNumbers.size(); i++ )
+    {
+		std::cout << std::endl << "Vectors of Vectors = " << i << std::endl;
+		for(int x = 0; x < setOfNumbers.at(i).size(); ++x){			
+			std::cout << setOfNumbers.at(i).at(x) << "\t";	
+		}
+        std::cout << std::endl << std::endl;
+    }
+
+
     textfile.close();
 	/* Label the results file */
     textfile2 << " Algorithm 1: Enumeration \n";
-    std::cout << " Algorithm 1: Enumeration \n" << std::endl;
+    std::cout << " Algorithm 1: Enumeration \n" << std::endl;	
+
+
 	/* Run enumeration algorithm on input numbers */
-    for( int i = 0; i < setOfNumbers->size(); i++ )
+	for( int i = 0; i < setOfNumbers.size(); i++ )
     {
         int start;
         int end;
-        int total = bruteForceEnumeration(*( setOfNumbers->at(i)), start, end);
+        int total = bruteForceEnumeration(setOfNumbers.at(i), start, end);
         /* Call function to output is to be written to MSS_Results.txt */
         std::cout << total << std::endl;	
-        writeResults( textfile2, *setOfNumbers->at(i), start, end, total );
+        writeResults( textfile2, setOfNumbers.at(i), start, end, total );
     }
 	/* Label the results file */
     textfile2 << " Algorithm 2: Better Enumeration \n";
     std::cout << " Algorithm 2: Better Enumeration \n" << std::endl;
     /* Run better enumeration algorithm on input numbers */
-	for( int i = 0; i < setOfNumbers->size(); i++ )
+	for( unsigned int i = 0; i < setOfNumbers.size(); i++ )
     {
         int start;
         int end;
-        int total = betterBruteMaxSum(*( setOfNumbers->at(i)), start, end);
+        int total = betterBruteMaxSum(setOfNumbers.at(i), start, end);
 	std::cout << total << std::endl;	//int start;
         //int end;
         //int total = betterBruteMaxSum(*( setOfNumbers->at(i)));
 		/* Call function to output is to be written to MSS_Results.txt */
-        writeResults( textfile2, *setOfNumbers->at(i), start, end, total );
+        writeResults( textfile2, setOfNumbers.at(i), start, end, total );
     }
 	/* Label the results file */
     textfile2 << " Algorithm 3: Divide and Conquer \n";
     std::cout << " Algorithm 3: Divide and Conquer \n" << std::endl;
     /* Run divide and conquer algorithm on input numbers */
-	for( int i = 0; i < setOfNumbers->size(); i++ )
+	for( unsigned int i = 0; i < setOfNumbers.size(); i++ )
     {
         int start;
         int end;
-        int total = executeDivideAndConquer(*(setOfNumbers->at(i)), start, end);
+        int total = executeDivideAndConquer(setOfNumbers.at(i), start, end);
         std::cout << total << std::endl;
        // int total = executeDivideAndConquer(*(setOfNumbers->at(i)), start, end);
 		/* Call function to output is to be written to MSS_Results.txt */
-		writeResults( textfile2, *setOfNumbers->at(i), start, end, total );
+		writeResults( textfile2, setOfNumbers.at(i), start, end, total );
     }
     /* Label the results file */
     textfile2 << " Algorithm 4: Linear-time \n";
     std::cout << " Algorithm 4: Linear-time \n" << std::endl;
-    for( int i = 0; i < setOfNumbers->size(); i++ )
+    for( unsigned int i = 0; i < setOfNumbers.size(); i++ )
     {
        int start;
        int end;
-       int total = linearMaxSub(*( setOfNumbers->at(i)), start, end);
+       int total = linearMaxSub(setOfNumbers.at(i), start, end);
        // int total = linearMaxSub(*( setOfNumbers->at(i)));
         std::cout << total << std::endl;
     /*     Call function to output is to be written to MSS_Results.txt */
-		writeResults( textfile2, *setOfNumbers->at(i), start, end, total);
+		writeResults( textfile2, setOfNumbers.at(i), start, end, total);
     }
     textfile2.close();
-    /* Delete the space taken by vector */
-    for( int i = 0; i < setOfNumbers->size(); i++ )
-        delete setOfNumbers->at(i);
-    delete setOfNumbers;
 
     return 0;
 }
@@ -119,16 +132,16 @@ int main()
  * *  Function name: readFile
  * *  Description: Function will format the lines by removing bracket
  * ***************************************************************/
-std::vector<std::string>* readFile(std::ifstream& input)
+std::vector<std::string> readFile(std::ifstream& input)
 {
-  	std::vector<std::string>* stringVector = new std::vector<std::string>();
+  	std::vector<std::string> stringVector = std::vector<std::string>();
     std::string line;
 	/* Read in a line until a newline character is found using getline
 	Credit http://stackoverflow.com/questions/18786575/using-getline-in-c */
     while(std::getline(input, line))
     {
         /* Use push back to insert the line into string vector */
-		stringVector->push_back(line);
+		stringVector.push_back(line);
     }
     return stringVector;
 }
@@ -141,11 +154,12 @@ void formatLine(std::string &rawString)
 {
     /* This is a temp string to hold non-bracket part of string*/
 	std::string formattedString;
+
 	/* Iterate through the string to look for bracket */
-    for( int i = 0; i < rawString.length(); i++ )
+    for( unsigned int i = 0; i < rawString.length(); i++ )
     {
         /* Skip any bracket characters */
-		if(rawString.at(i) == '[' || rawString.at(i) == ']')
+		if(rawString.at(i) == '[' || rawString.at(i) == ']' || rawString.at(i) == ',')
             continue;
         /* Only add the non bracket characters to the temp string */
 		else
@@ -160,26 +174,38 @@ void formatLine(std::string &rawString)
  * *  Description: Function will read file input and put contents
  * *  into number vector
  * ***************************************************************/
-std::vector<int>* convertToNumber(std::string &line)
+std::vector<int> convertToNumber(std::string &line)
 {
-    std::vector<int>* returnVector = new std::vector<int>();
-	/* Convert the string into a C style string or const char * 
-	Credit: http://stackoverflow.com/questions/10958437/how-to-convert-an-stdstring-to-c-style-string */
-    const char *lineCStyle = line.c_str();
-	/* In order to split the line into numbers need to delimit on commas using strtok
-	Credit: http://stackoverflow.com/questions/10513841/using-strtok-to-split-the-string */
-    char* tokenizedString = strtok((char*)lineCStyle, " ,");
-    while(tokenizedString != NULL)
+    std::vector<int> returnVector;
+	/* Convert the string into a C style string or const char
+	http://stackoverflow.com/questions/236129/split-a-string-in-c*/ 
+	std::string buf; // Have a buffer string
+    std::stringstream ss; // Insert the string into a stream
+
+	ss << line;
+
+    std::vector<std::string> tokens; // Create vector to hold our words
+	while (ss >> buf){
+        tokens.push_back(buf);
+	}
+
+	int tempNum = 0;
+
+	//http://code-better.com/c/convert-string-integer-using-stringstream
+	for(unsigned int i = 0; i < tokens.size(); ++i)
     {
-        /* For the tokenized, for each number use atoi to convert to a number 
-		Credit http://stackoverflow.com/questions/7663709/convert-string-to-int-c */
-		int tempNum = atoi(tokenizedString);
-		/* Use push back function to insert number as integer to vector */
-        returnVector->push_back(tempNum);
-		/* The second time you call it you pass it NULL as the first parameter to tell function to resume from the last spot in the string
-		Credit https://bytes.com/topic/c/answers/710341-null-second-call-strtok */
-        tokenizedString = strtok(NULL, " ,");
+		ss.clear();
+        ss << tokens.at(i);	
+		ss >> tempNum;
+		if(ss.fail()){
+			std::cout << "error" << std::endl;
+			exit(2);
+		}else{
+			/* Use push back function to insert number as integer to vector */
+			returnVector.push_back(tempNum);		
+		}
     }
+
     return returnVector;
 }
 
@@ -188,22 +214,27 @@ std::vector<int>* convertToNumber(std::string &line)
  * *  Description: Function will read file input and put contents
  * *  into number vector
  * ***************************************************************/
-std::vector<std::vector<int>*>* getNumbers(std::ifstream &input)
+std::vector<std::vector<int>> getNumbers(std::ifstream &input)
 {
     /* 2d pointers to int vectors 
 	Credit http://stackoverflow.com/questions/21663256/how-to-initialize-a-vector-of-vectors*/
-	std::vector<std::vector<int>*>* numbers = new std::vector<std::vector<int>*>();
+	std::vector<std::vector<int>> numbers;
     /* Call function to read numbers from file into a string */
-	std::vector<std::string>* numbersAsString = readFile(input);
-	for( int i = 0; i < numbersAsString->size(); i++ )
+	std::vector<std::string> numbersAsString = readFile(input);
+
+	for( unsigned int i = 0; i < numbersAsString.size(); i++ )
     {
-        /* Call function to strip the brackets */
-		formatLine(numbersAsString->at(i));
-		/* Insert converted number into number vector */
-        numbers->push_back(convertToNumber(numbersAsString->at(i)));
+		if(numbersAsString.at(i).size() > 0){
+			/* Call function to strip the brackets */
+			formatLine(numbersAsString.at(i));
+
+			std::vector<int> nums = convertToNumber(numbersAsString.at(i));
+		
+			/* Insert converted number into number vector */
+			numbers.push_back(nums);
+		}
     }
-	/* Clean the memory taken by the temp string */
-    delete numbersAsString;
+
     return numbers;
 }
 
@@ -217,7 +248,7 @@ void writeResults(std::ofstream &output, std::vector<int>& results, int lo, int 
 	CREDIT http://www.cplusplus.com/forum/beginner/4442/ */
 	output << "[";		
 	/* For each number, write it to the file followed by comma and space*/
-        for( int i = 0; i < results.size() - 1; i++ )
+        for( unsigned int i = 0; i < results.size() - 1; i++ )
              output << results.at(i) << ", ";
 	/* Once you get to last number, add a end bracket and newline */
         output << results.at(results.size() - 1) << "]" << std::endl;

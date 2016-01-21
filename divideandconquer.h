@@ -9,9 +9,9 @@ struct maximumSubarray
 	int highIndex;
 };
 
-int executeDivideAndConquer( std::vector <int> v );
-int executeDivideAndConquer( std::vector <int> v, int &lowIndex, int &highIndex );
-int findMaximumSubarray( std::vector <int> v, int lowIndex, int highIndex );
-maximumSubarray findMaximumSubarray2(std::vector <int> v, int lowIndex, int highIndex );
-int findMaximumCrossingSubarray( std::vector<int> v, int lowIndex, int highIndex, int midIndex );
-maximumSubarray findMaximumCrossingSubarray2(std::vector<int> vec, int lowIndex, int highIndex, int midIndex );
+int executeDivideAndConquer( std::vector <int> &v );
+int executeDivideAndConquer( std::vector <int> &v, int &lowIndex, int &highIndex );
+int findMaximumSubarray( std::vector <int> &v, int lowIndex, int highIndex );
+maximumSubarray findMaximumSubarray2(std::vector <int> &v, int lowIndex, int highIndex );
+int findMaximumCrossingSubarray( std::vector<int> &v, int lowIndex, int highIndex, int midIndex );
+maximumSubarray findMaximumCrossingSubarray2(std::vector<int> &vec, int lowIndex, int highIndex, int midIndex );
