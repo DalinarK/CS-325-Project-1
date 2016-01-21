@@ -1,5 +1,5 @@
 /**************************************************************
- * *  Filename: main.cpp
+ * *  Filename: linearTime.cpp
  * *  Coded by: Dustin Dinh, Benjamin Fisher, Christina Nock
  * *  Purpose:  To read the input from text file, run the algorithm, record time, and write output to text file
  * * CREDIT: vector functions such as size, at(index), pushback found on http://www.dreamincode.net/forums/topic/33631-c-vector-tutorial/.
@@ -35,7 +35,7 @@ int main()
 	Credit: http://www.cplusplus.com/doc/tutorial/files/*/
 	std::ifstream textfile;
 	/* In order to open a file with a stream object we use its member function open */
-    textfile.open( "MSS_Problems.txt" );
+    textfile.open( "MSS_TestProblems.txt" );
 	/* To check if a file stream was successful opening a file, you can do it by calling to member is_open
 	Credit: http://www.cplusplus.com/doc/tutorial/files/*/
     if( !textfile.is_open() )
@@ -61,7 +61,9 @@ int main()
         int end;
         int total = bruteForceEnumeration(*( setOfNumbers->at(i)), start, end);
         /* Call function to output is to be written to MSS_Results.txt */
-        std::cout << total << std::endl;	
+    //    std::cout << "Start: " << start << std::endl;
+      //  std::cout << "End: " << end << std::endl;
+        //std::cout << "Total: " <<  total << std::endl;	
         writeResults( textfile2, *setOfNumbers->at(i), start, end, total );
     }
 	/* Label the results file */
@@ -73,7 +75,7 @@ int main()
         int start;
         int end;
         int total = betterBruteMaxSum(*( setOfNumbers->at(i)), start, end);
-	std::cout << total << std::endl;	//int start;
+//	std::cout << total << std::endl;	//int start;
         //int end;
         //int total = betterBruteMaxSum(*( setOfNumbers->at(i)));
 		/* Call function to output is to be written to MSS_Results.txt */
@@ -88,7 +90,7 @@ int main()
         int start;
         int end;
         int total = executeDivideAndConquer(*(setOfNumbers->at(i)), start, end);
-        std::cout << total << std::endl;
+  //      std::cout << total << std::endl;
        // int total = executeDivideAndConquer(*(setOfNumbers->at(i)), start, end);
 		/* Call function to output is to be written to MSS_Results.txt */
 		writeResults( textfile2, *setOfNumbers->at(i), start, end, total );
@@ -102,7 +104,7 @@ int main()
        int end;
        int total = linearMaxSub(*( setOfNumbers->at(i)), start, end);
        // int total = linearMaxSub(*( setOfNumbers->at(i)));
-        std::cout << total << std::endl;
+    //    std::cout << total << std::endl;
     /*     Call function to output is to be written to MSS_Results.txt */
 		writeResults( textfile2, *setOfNumbers->at(i), start, end, total);
     }
@@ -222,13 +224,13 @@ void writeResults(std::ofstream &output, std::vector<int>& results, int lo, int 
 	/* Once you get to last number, add a end bracket and newline */
         output << results.at(results.size() - 1) << "]" << std::endl;
 	/* Now we will write the results from start to end index into file */
-        if ((results.size() > 0) && (lo > 0) && (hi > 0))
-        {
+        //iif ((results.size() > 0) && (lo > 0) && (hi > 0))
+        //{
               output << "[";
               for( int j = lo; j < hi; j++ )
                    output << results.at(j) << ", ";
                    output << results.at(hi) << ']' << std::endl;
-        }
+       // }
         /* Now we want to write the sum of max array from start to end on the file */
         output << "Total: " << total ;
         output << std::endl;
