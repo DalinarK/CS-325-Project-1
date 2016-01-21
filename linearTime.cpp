@@ -17,32 +17,12 @@
  * *  Description: Function will find the sub array with the max sum 
  * *  in the array arg
  * ***************************************************************/
-int linearMaxSub( std::vector<int>  v )
+int linearMaxSub( std::vector<int> v, int &lowInd, int &highInd )
 {
     int localSum = 0;			//current sum of current subarray
     int maxSum = 0;				//maximum sum subarray calculated so far
-	/* Iterate over the array once */
-    for( int i = 0; i < v.size(); i++ )
-    {
-        localSum = std::max( 0, localSum + v[i] );
-		maxSum = std::max( localSum, maxSum );
-    }
-    return maxSum;
-}
-
-/**************************************************************
- * *  Function name: linearMaxSub
- * *  Parameters: integer vector as input to run algorithm on
- * *  Return value: int representing sum of	the max subarray
- * *  Description: Function will find the sub array with the max sum 
- * *  in the array arg
- * ***************************************************************/
-int linearMaxSub( std::vector<int> v, int &start, int &end )
-{
-    int localSum = 0;			//current sum of current subarray
-    int maxSum = 0;				//maximum sum subarray calculated so far
-	int lowIndex = 0;			//set the lower index to start summing from
-	int highIndex = 0;			//set the higher index to end summing from
+	lowInd = 0;			//set the lower index to start summing from
+	highInd = 0;			//set the higher index to end summing from
     /* Iterate over the array once */
     for( int i = 0; i < v.size(); i++ )
     {
@@ -50,7 +30,7 @@ int linearMaxSub( std::vector<int> v, int &start, int &end )
 		if(( localSum + v[i]) < 0)
         {
             localSum = 0;
-            lowIndex = i + 1;
+            lowInd = i + 1;
         }
 		/* If current sum is positive so keep adding elements */
         else
@@ -61,7 +41,7 @@ int linearMaxSub( std::vector<int> v, int &start, int &end )
         if( maxSum < localSum )
         {
             maxSum = localSum;
-            highIndex = i;
+            highInd = i;
         }
     }
     return maxSum;
