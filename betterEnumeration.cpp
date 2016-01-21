@@ -53,8 +53,8 @@ int betterBruteMaxSum( std::vector <int> v, int &lowInd, int &highInd )
 {
 	int maxSum = 0;				//maximum sum subarray calculated so far
 	int currentSum = 0;			//current sum of current subarray
-	int lowIndex = 0;			//set the lower index to start summing from
-	int highIndex = 0;			//set the higher index to end summing from
+	lowInd = 0;			//set the lower index to start summing from
+	highInd = 0;			//set the higher index to end summing from
 	/* Start at index 0 and iterate through until the end */
 	for ( int startIndex = 0; startIndex < v.size(); startIndex++ )
 	{
@@ -69,8 +69,8 @@ int betterBruteMaxSum( std::vector <int> v, int &lowInd, int &highInd )
 			if ( currentSum > maxSum )
 			{
 				maxSum = currentSum;
-				lowIndex = startIndex;
-				highIndex = i;
+				lowInd = startIndex;
+				highInd = i;
 			}
 		}
 	}
