@@ -197,57 +197,119 @@ int * createArray(unsigned int size){
 
 int main(){
 	MSS * myResult;
+	int i;
 
 	/* initialize random seed: */
 	srand (time(NULL));
 
-	unsigned int sizeOfNum = 512;
+	unsigned int sizeOfNum = 1000;
 
 	int *num = createArray(sizeOfNum);
-	    
+	int timesArray[10];
+	int runTime;
+	int totalRuntime;
+	int averageRuntime;
+	std::clock_t    start;
+
 	printf("Max Sum Sub-Array Algorithms\n\n");
 	printf("size = %d\n\n", sizeOfNum);
-	std::clock_t    start;
-    
-	printf("\n\nBrute Force Max Sum Sub-Array\n\n");
-	
-	start = std::clock();
-	bruteMaxSumSub(num, result, sizeOfNum);
-	std::cout << "Brute Force Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
-	printf("Result of bruteMaxSumSub, max sum = %d\nSubArray*************\n", result.sum);
-	for(int i = result.start; i <= result.end; ++i){
-		printf("%d\t", num[i]);
+	for(i = 0; i < 10; i++)
+	{
+		int *num = createArray(sizeOfNum);
+		start = std::clock();
+		bruteMaxSumSub(num, result, sizeOfNum);
+		runTime = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) ;
+		printf("Result of bruteMaxSumSub, max sum = %d\nSubArray*************\n", result.sum);
+		// for(int i = result.start; i <= result.end; ++i){
+		// 	printf("%d\t", num[i]);
+		// }	
+		timesArray[i] = runTime;
+		// printf("runtime is %i \n", timesArray[i] );
 	}
+
+	totalRuntime = 0;
+	for (i=0;i < 10; i++)
+	{
+		totalRuntime += timesArray[i];
+	}
+	averageRuntime = totalRuntime/10;
+	printf("Average runtime for Max Sum Sub-Array Algorithm is: %i\n", averageRuntime);
 
 	printf("\n\nImproved Brute Force Max Sum Sub-Array\n\n");
+	printf("size = %d\n\n", sizeOfNum);
 
-	start = std::clock();
-	betterBruteMaxSum(num, result, sizeOfNum);
-	std::cout << "Better Brute Force Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
-	printf("Result of betterBruteMaxSumSub, max sum = %d\nSubArray*************\n", result.sum);
-	for(int i = result.start; i <= result.end; ++i){
-		printf("%d\t", num[i]);
+	for(i = 0; i < 10; i++)
+	{
+		int *num = createArray(sizeOfNum);
+		start = std::clock();
+		betterBruteMaxSum(num, result, sizeOfNum);
+		runTime = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) ;
+		printf("Result of betterBruteMaxSumSub, max sum = %d\nSubArray*************\n", result.sum);
+		// for(int i = result.start; i <= result.end; ++i){
+		// 	printf("%d\t", num[i]);
+		// }
+		timesArray[i] = runTime;
+		// printf("runtime is %i \n", timesArray[i] );
 	}
+
+	totalRuntime = 0;
+	for (i=0;i < 10; i++)
+	{
+		totalRuntime += timesArray[i];
+	}
+	averageRuntime = totalRuntime/10;
+	printf("\n\nAverage runtime for betterBruteMaxSumSub Algorithm is: %i\n", averageRuntime);
 
 	printf("\n\nDivide and Conquer Max Sum Sub-Array\n\n");
-		
-	start = std::clock();
-	myResult = divideAndConquerMaxSub(num, 0, sizeOfNum - 1);
-	std::cout << "Divide and Conquer Max Sum Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
-	printf("Result of divideAndConquerMaxSub, max sum = %d\nSubArray*************\n", myResult->sum);
-	for(int i = myResult->start; i <= myResult->end; ++i){
-		printf("%d\t", num[i]);
+	printf("size = %d\n\n", sizeOfNum);
+
+
+	for(i = 0; i < 10; i++)
+	{
+		int *num = createArray(sizeOfNum);
+		start = std::clock();
+		myResult = divideAndConquerMaxSub(num, 0, sizeOfNum);
+		runTime = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) ;
+		printf("Result of divideAndConquerMaxSub, max sum = %d\nSubArray*************\n", myResult->sum);
+		// for(int i = result.start; i <= result.end; ++i){
+		// 	printf("%d\t", num[i]);
+		// }
+		timesArray[i] = runTime;
+		// printf("runtime is %i \n", timesArray[i] );
 	}
 
-	printf("\n\nLinear Max Sum Sub-Array\n\n");
-		
-	start = std::clock();
-	linearMaxSub(num, sizeOfNum, result);
-	std::cout << "Linear Max Sum Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms\n";
-	printf("Result of linearMaxSub, max sum = %d\nSubArray*************\n", result.sum);
-	for(int i = result.start; i <= result.end; ++i){
-		printf("%d\t", num[i]);
+	totalRuntime = 0;
+	for (i=0; i < 10; i++)
+	{
+		totalRuntime += timesArray[i];
 	}
+	averageRuntime = totalRuntime/10;
+	printf("\n\nAverage runtime for divideAndConquerMaxSub Algorithm is: %i\n", averageRuntime);	
+
+
+	printf("\n\nLinear Max Sum Sub-Array\n\n");
+	printf("size = %d\n\n", sizeOfNum);	
+
+	for(i = 0; i < 10; i++)
+	{
+		int *num = createArray(sizeOfNum);
+		start = std::clock();
+		linearMaxSub(num, sizeOfNum, result);
+		runTime = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) ;
+		printf("Result of linearMaxSub, max sum = %d\nSubArray*************\n", result.sum);
+		// for(int i = result.start; i <= result.end; ++i){
+		// 	printf("%d\t", num[i]);
+		// }
+		timesArray[i] = runTime;
+	}
+
+	totalRuntime = 0;
+	for (i=0;i < 10; i++)
+	{
+		totalRuntime += timesArray[i];
+	}
+	averageRuntime = totalRuntime/10;
+	printf("\n\nAverage runtime for linearMaxSub Algorithm is: %i\n", averageRuntime);
 
 	std::cout << std::endl << std::endl;
 
