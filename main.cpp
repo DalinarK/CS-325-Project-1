@@ -232,7 +232,7 @@ void writeResults(std::ofstream &output, std::vector<int>& results, int lo, int 
                    output << results.at(hi) << ']' << std::endl;
        // }
         /* Now we want to write the sum of max array from start to end on the file */
-        output << "Total: " << total ;
+        output << total;
         output << std::endl;
         
 }

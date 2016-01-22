@@ -497,26 +497,27 @@ std::vector<std::vector<int>> getNumbers(std::ifstream &input)
  * ***************************************************************/
 void writeResults(std::ofstream &output, std::vector<int>& results, int lo, int hi, int total)
 {
+
     /* Use the << operator to write to a file and add back the bracket
 	CREDIT http://www.cplusplus.com/forum/beginner/4442/ */
 	output << "[";		
 	/* For each number, write it to the file followed by comma and space*/
-        for( unsigned int i = 0; i < results.size() - 1; i++ )
+        for( int i = 0; i < results.size() - 1; i++ )
              output << results.at(i) << ", ";
 	/* Once you get to last number, add a end bracket and newline */
         output << results.at(results.size() - 1) << "]" << std::endl;
 	/* Now we will write the results from start to end index into file */
-        if ((results.size() > 0) && (lo > 0) && (hi > 0))
-        {
+        //iif ((results.size() > 0) && (lo > 0) && (hi > 0))
+        //{
               output << "[";
               for( int j = lo; j < hi; j++ )
                    output << results.at(j) << ", ";
                    output << results.at(hi) << ']' << std::endl;
-        }
+       // }
         /* Now we want to write the sum of max array from start to end on the file */
-        output << "Total: " << total ;
-        output << std::endl;
-        
+        output << total << "\n \n";
+            
 }
+
 
 
