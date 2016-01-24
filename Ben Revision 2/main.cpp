@@ -1,16 +1,13 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <iostream>
-#include <ctime>
 #include <limits>
 #include <fstream>
-#include <iostream>
 #include <vector>
 #include <stdlib.h>
 #include <string.h>
 #include <ctime>
 #include <time.h>
-#include <stdio.h>
 #include <string>
 #include <sstream>
 
@@ -91,7 +88,6 @@ void betterBruteMaxSum(std::vector<int> &array,  MSS &result, int size){
 	result.start = 0;
 	result.end = 0;
 	int sumOfCur = 0;
-	int start = 0;
 	int end = size - 1;	
 	//start at index 0 and iterate through until the end
 	for ( int startIndex= 0;  startIndex <= end; ++startIndex){
@@ -213,7 +209,7 @@ void createVector(std::vector<int> &result, unsigned int size){
 
 	int isNeg = 0;
 	int num = 0;
-	for(int i = 0; i < size; ++i){
+	for(unsigned int i = 0; i < size; ++i){
 		num = rand() % 100 + 1;
 		isNeg = rand() % 2;
 
@@ -316,7 +312,7 @@ int main(){
 
 
 	/* Run enumeration algorithm on input numbers */
-	for( int i = 0; i < setOfNumbers.size(); i++ )
+	for( unsigned int i = 0; i < setOfNumbers.size(); i++ )
     {        
 		bruteMaxSumSub(setOfNumbers.at(i), result, setOfNumbers.at(i).size());
 		int total = result.sum;
@@ -502,7 +498,7 @@ void writeResults(std::ofstream &output, std::vector<int>& results, int lo, int 
 	CREDIT http://www.cplusplus.com/forum/beginner/4442/ */
 	output << "[";		
 	/* For each number, write it to the file followed by comma and space*/
-        for( int i = 0; i < results.size() - 1; i++ )
+        for(unsigned int i = 0; i < results.size() - 1; i++ )
              output << results.at(i) << ", ";
 	/* Once you get to last number, add a end bracket and newline */
         output << results.at(results.size() - 1) << "]" << std::endl;
